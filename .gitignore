@@ -1,0 +1,8 @@
+.idea/
+node_modules/
+lib/
+.sass-cache/
+npm-debug.log
+coverage/
+yarn-error.log
+.DS_STORE
