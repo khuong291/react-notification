@@ -1,0 +1,10 @@
+{
+  "name": "react-notification",
+  "version": "1.0.0",
+  "description": "A complete and totally customizable component for notifications in React",
+  "main": "index.js",
+  "repository": "https://github.com/khuong291/react-notification.git",
+  "author": "khuong291 <dkhuong291@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
