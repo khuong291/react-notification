@@ -70,16 +70,16 @@ class Notification extends React.Component {
 }
 
 Notification.propTypes = {
-  providerName: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  iconURL: PropTypes.string.isRequired,
-  hasCloseButton: PropTypes.boolean.isRequired,
-  autoClose: PropTypes.boolean.isRequired,
-  draggable: PropTypes.boolean.isRequired,
-  onOpen: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
+  providerName: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  iconURL: PropTypes.string,
+  hasCloseButton: PropTypes.boolean,
+  autoClose: PropTypes.boolean,
+  draggable: PropTypes.boolean,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 Notification.defaultProps = {

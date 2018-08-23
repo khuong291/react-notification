@@ -1,0 +1,18 @@
+$rn-namespace: 'ReactNotification';
+$rn-notification-width: 320px !default;
+$rn-notification-background: #ffffff !default;
+$rn-notification-min-height: 64px !default;
+$rn-notification-max-height: 800px !default;
+
+
+$rn-color-default: #fff !default;
+$rn-color-info: #3498db !default;
+$rn-color-success: #07bc0c !default;
+$rn-color-warning: #f1c40f !default;
+$rn-color-error: #e74c3c !default;
+
+$rn-color-progress-default: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55) !default;
+
+$rn-mobile: "only screen and (max-width : 480px)" !default;
+$rn-font-family: sans-serif !default;
+$rn-z-index: 9999 !default;
