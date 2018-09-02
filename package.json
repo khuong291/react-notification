@@ -1,7 +1,8 @@
 {
   "name": "react-notification",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A complete and totally customizable component for notifications in React",
+  "main": "index.js",
   "keywords": [
     "react",
     "notification",
@@ -11,49 +12,27 @@
     "push",
     "alert"
   ],
-  "main": "index.js",
   "scripts": {
-    "start": "npm run sass && webpack-dev-server --config ./webpack.config.dev.js",
-    "test": "jest",
-    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "lint": "eslint src/",
-    "lint:fix": "eslint --fix src/",
-    "prettier-all": "prettier --single-quote --write 'src/**/*.js'",
-    "prebuild": "npm run test",
-    "build": "npm run build:es && npm run build:umd && npm run style",
-    "build:es": "npm run clean:es && cross-env NODE_ENV=production babel --ignore=__tests__ src -d lib",
-    "build:umd": "npm run clean:umd && cross-env NODE_ENV=production webpack",
-    "clean:es": "rimraf lib/*",
-    "clean:umd": "rimraf dist/*",
-    "sass": "node-sass scss/main.scss dist/ReactNotification.css",
-    "postsass": "postcss --use autoprefixer -m -b 'last 2 versions' dist/ReactNotification.css -o dist/ReactNotification.css",
-    "style": "npm run sass && cssnano dist/ReactNotification.css dist/ReactNotification.min.css --no-zindex --no-reduceIdents"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development"
   },
-  "repository": "https://github.com/khuong291/react-notification.git",
   "author": "khuong291 <dkhuong291@gmail.com>",
+  "repository": "https://github.com/khuong291/react-notification.git",
   "license": "MIT",
-  "private": false,
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.3",
-    "babel-jest": "^23.0.1",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
-    "css-loader": "^0.28.11",
-    "eslint": "^4.19.1",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-react": "^7.9.1",
-    "jest": "^23.1.0",
-    "jest-cli": "^23.1.0",
-    "prettier": "^1.13.5",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "style-loader": "^0.21.0",
-    "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4",
-    "styled-components": "^3.3.3"
-  },
-  "dependencies": {
-    "prop-types": "^15.6.2"
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
   }
 }
