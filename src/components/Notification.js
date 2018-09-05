@@ -1,79 +1,50 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 class Notification extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isRunning: true
-      // flag = {
-      //   canCloseOnClick: true,
-      //   canDrag: false
-      // },
-      // drag = {
-      //   start: 0,
-      //   x: 0,
-      //   deltaX: 0,
-      //   removalDistance: 0
-      // }
-    };
+  componentDidMount() {
+    if (this.props.draggable) {
+      this.bindDragEvents();
+    }
   }
 
-  // componentDidMount() {
-  //   this.props.onOpen(this.props.children.props);
-  //   if (this.props.draggable) {
-  //     this.bindDragEvents();
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    if (prevProps.draggable !== this.props.draggable) {
+      this.props.draggable ? this.bindDragEvents() : this.unbindDragEvents();
+    }
+  }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.draggable !== this.props.draggable) {
-  //     this.props.draggable ? this.bindDragEvents() : this.unbindDragEvents();
-  //   }
-  // }
+  componentWillUnmount() {
+    if (this.props.draggable) {
+      this.unbindDragEvents();
+    }
+  }
 
-  // componentWillUnmount() {
-  //   this.props.onClose(this.props.children.props);
-  //   if (this.props.draggable) {
-  //     this.unbindDragEvents();
-  //   }
-  // }
+  bindDragEvents() {
+    document.addEventListener("mousemove", this.onDragMove);
+    document.addEventListener("mouseup", this.onDragEnd);
 
-  // pauseToast = () => {
-  //   this.setState({ isRunning: false });
-  // };
+    document.addEventListener("touchmove", this.onDragMove);
+    document.addEventListener("touchend", this.onDragEnd);
+  }
 
-  // playToast = () => {
-  //   this.setState({ isRunning: true });
-  // };
+  unbindDragEvents() {
+    document.removeEventListener("mousemove", this.onDragMove);
+    document.removeEventListener("mouseup", this.onDragEnd);
 
-  // bindDragEvents() {
-  //   document.addEventListener("mousemove", this.onDragMove);
-  //   document.addEventListener("mouseup", this.onDragEnd);
-
-  //   document.addEventListener("touchmove", this.onDragMove);
-  //   document.addEventListener("touchend", this.onDragEnd);
-  // }
-
-  // unbindDragEvents() {
-  //   document.removeEventListener("mousemove", this.onDragMove);
-  //   document.removeEventListener("mouseup", this.onDragEnd);
-
-  //   document.removeEventListener("touchmove", this.onDragMove);
-  //   document.removeEventListener("touchend", this.onDragEnd);
-  // }
+    document.removeEventListener("touchmove", this.onDragMove);
+    document.removeEventListener("touchend", this.onDragEnd);
+  }
 
   render() {
     return (
       <Container>
         <ContentBox>
-          <SenderImage src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png" />
+          <ProviderImage src={this.props.providerURL} />
           <TextBox>
-            <Title>Disk Not Ejected Properly</Title>
-            <Description>
-              Eject "Time Machine rMBP" before disconnecting or turning it off
-            </Description>
+            <Title>{this.props.title}</Title>
+            <Description>{this.props.description}</Description>
           </TextBox>
         </ContentBox>
         <HandleBox>
@@ -84,58 +55,79 @@ class Notification extends React.Component {
   }
 }
 
-// Notification.propTypes = {
-//   providerName: PropTypes.string,
-//   title: PropTypes.string,
-//   description: PropTypes.string,
-//   iconURL: PropTypes.string,
-//   hasCloseButton: PropTypes.boolean,
-//   autoClose: PropTypes.boolean,
-//   draggable: PropTypes.boolean,
-//   onOpen: PropTypes.func,
-//   onClose: PropTypes.func,
-//   onClick: PropTypes.func
-// };
+Notification.propTypes = {
+  providerURL: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  hasCloseButton: PropTypes.bool,
+  autoClose: PropTypes.bool,
+  draggable: PropTypes.bool,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+  onClick: PropTypes.func
+};
 
-// Notification.defaultProps = {
-//   providerName: "",
-//   title: "",
-//   description: "",
-//   iconURL: "",
-//   hasCloseButton: false,
-//   autoClose: true,
-//   draggable: true,
-//   onOpen: () => {},
-//   onClose: () => {},
-//   onClick: () => {}
-// };
+Notification.defaultProps = {
+  hasCloseButton: false,
+  autoClose: true,
+  draggable: true,
+  onOpen: () => {},
+  onClose: () => {},
+  onClick: () => {}
+};
+
+const fromRightToLeft = keyframes`
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+`;
+
+const fromLeftToRight = keyframes`
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+`;
 
 const Container = styled.div`
-  width: 400px;
-  height: 80px;
-  background-color: #eae9ee;
+  width: 350px;
+  height: 60px;
+  background-color: #f6f6f6;
   float: right;
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   flex-direction: row;
+  z-index: 999;
   -moz-box-shadow: 0 0 14px #7d7d7d;
   -webkit-box-shadow: 0 0 14px #7d7d7d;
   box-shadow: 0 0 14px #7d7d7d;
   margin: 10px 10px 0 0;
+  animation: ${fromRightToLeft} 0.5s ease-in-out;
 `;
 
 const Title = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: 15px;
   color: #565656;
   font-weight: 600;
   margin-bottom: 3px;
 `;
 
 const Description = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   color: #717171;
   display: block;
   text-overflow: ellipsis;
@@ -144,30 +136,30 @@ const Description = styled.div`
   line-height: 1em;
 `;
 
-const SenderImage = styled.img`
-  width: 44px;
-  height: 44px;
+const ProviderImage = styled.img`
+  width: 35px;
+  height: 35px;
   object-fit: scale-down;
-  margin: 7px 10px 0 0;
+  margin: 7px 8px 0 4px;
 `;
 
 const ContentBox = styled.div`
-  width: 77%;
+  width: 80%;
   height: 100%;
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 5px;
 `;
 
 const TextBox = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  max-width: 240px;
+  max-width: 200px;
 `;
 
 const HandleBox = styled.div`
-  width: 23%;
+  width: 20%;
   height: 100%;
   float: right;
   text-align: center;
@@ -178,7 +170,7 @@ const CloseButton = styled.button`
   border: none;
   background: none;
   outline: none;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 600;
   color: #646464;
   text-align: center;
@@ -187,7 +179,7 @@ const CloseButton = styled.button`
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   :hover {
-    background-color: #e1e1e1;
+    background-color: #f0f0f0;
   }
 `;
 

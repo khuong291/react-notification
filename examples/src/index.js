@@ -1,10 +1,18 @@
 import React from "react";
 import { render } from "react-dom";
-import Notification from "../../src";
+import NotificationManager from "../../src";
+
+// window.show = NotificationManager;
 
 const App = () => (
   <div>
-    <Notification />
+    <button
+      onClick={() => {
+        NotificationManager();
+      }}
+    >
+      show
+    </button>
   </div>
 );
 
