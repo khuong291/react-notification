@@ -10,8 +10,8 @@ class NotificationContainer extends React.Component {
     };
   }
 
-  renderToast() {
-    const toastToRender = {};
+  renderNotifications() {
+    const NotificationToRender = {};
     const { className, style, newestOnTop } = this.props;
     const collection = newestOnTop
       ? Object.keys(this.collection).reverse()
@@ -55,7 +55,7 @@ class NotificationContainer extends React.Component {
   }
 
   render() {
-    return <div>{this.renderNotification()}</div>;
+    return <div>{this.renderNotifications()}</div>;
   }
 }
 
