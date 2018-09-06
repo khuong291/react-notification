@@ -27,7 +27,7 @@ class NotificationContainer extends React.Component {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 10px 10px 0 0;
+  margin: 4px 10px 0 0;
   width: 350px;
   float: right;
 `;

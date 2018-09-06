@@ -16,19 +16,20 @@ class Notification extends React.Component {
     if (this.props.draggable) {
       this.bindDragEvents();
     }
-
-    setTimeout(() => {
-      this.setState(
-        {
-          isClose: true
-        },
-        () => {
-          setTimeout(() => {
-            notification.onClose(this.props.id);
-          }, 500);
-        }
-      );
-    }, NotificationDisplayTime);
+    if (this.props.autoClose) {
+      setTimeout(() => {
+        this.setState(
+          {
+            isClose: true
+          },
+          () => {
+            setTimeout(() => {
+              notification.onClose(this.props.id);
+            }, 500);
+          }
+        );
+      }, NotificationDisplayTime);
+    }
   }
 
   componentDidUpdate(prevProps) {
