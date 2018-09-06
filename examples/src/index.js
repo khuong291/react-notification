@@ -1,11 +1,24 @@
 import React from "react";
 import { render } from "react-dom";
-import { NotificationContainer } from "../../src";
+import { notification, NotificationContainer } from "../../src";
 
 const App = () => (
   <div>
     <NotificationContainer />
-    <button onClick={() => {}}>show</button>
+    <button
+      onClick={() => {
+        notification.emit();
+      }}
+    >
+      show
+    </button>
+    <button
+      onClick={() => {
+        notification.dismissAll();
+      }}
+    >
+      dismissAll
+    </button>
   </div>
 );
 

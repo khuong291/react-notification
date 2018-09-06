@@ -1,64 +1,23 @@
 import * as React from "react";
 import Notification from "./Notification";
-import eventManager from "../utils/eventManager";
-import { ACTION } from "../utils/constants";
+import { NotificationContainerId } from "../utils/constants";
 import styled from "styled-components";
+import { queue } from "../utils/notification";
 
 class NotificationContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      notifications: []
-    };
-  }
-
-  componentDidMount() {
-    eventManager
-      .on(ACTION.SHOW, content => this.show(content))
-      .on(
-        ACTION.CLEAR,
-        id => (id !== null ? this.removeNotification(id) : this.clear())
-      )
-      .emit(ACTION.DID_MOUNT, this);
-  }
-
-  removeNotification(id) {
-    this.setState(
-      {
-        notifications: this.state.notifications.filter(
-          notification => notification !== id
-        )
-      },
-      eventManager.emit(ACTION.ON_CHANGE, this.state.notifications.length)
-    );
-  }
-
-  renderNotifications() {
-    <Notification
-      providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
-      title="Disk Not Ejected Properly"
-      description="Eject Time Machine before disconnecting or turning it off"
-    />;
-  }
-
   render() {
     return (
-      <Container>
-        <Notification
-          providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
-          title="Disk Not Ejected Properly"
-          description="Eject Time Machine before disconnecting or turning it off"
-        />
-        <Notification
-          providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
-          title="Disk Not Ejected Properly"
-          description="Eject Time Machine before disconnecting or turning it off"
-        />
-        <Notification
-          providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
-          title="Disk Not Ejected Properly"
-          description="Eject Time Machine before disconnecting or turning it off"
-        />
+      <Container id={NotificationContainerId}>
+        {queue.map(notification => {
+          return (
+            <Notification
+              key={notification.id}
+              providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
+              title="Disk Not Ejected Properly"
+              description="Eject Time Machine before disconnecting or turning it off"
+            />
+          );
+        })}
       </Container>
     );
   }
