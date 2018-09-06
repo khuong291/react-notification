@@ -15,6 +15,19 @@ class Notification extends React.Component {
     if (this.props.draggable) {
       this.bindDragEvents();
     }
+
+    setTimeout(() => {
+      this.setState(
+        {
+          isClose: true
+        },
+        () => {
+          setTimeout(() => {
+            notification.onClose(this.props.id);
+          }, 500);
+        }
+      );
+    }, 4000);
   }
 
   componentDidUpdate(prevProps) {
@@ -51,12 +64,15 @@ class Notification extends React.Component {
         isClose: true
       },
       () => {
-        notification.onClose(this.props.id);
+        setTimeout(() => {
+          notification.onClose(this.props.id);
+        }, 500);
       }
     );
   }
 
   render() {
+    const Container = this.state.isClose ? ClosedContainer : OpenedContainer;
     return (
       <Container>
         <ContentBox>
@@ -133,7 +149,14 @@ const Container = styled.div`
   -moz-box-shadow: 0 0 14px #7d7d7d;
   -webkit-box-shadow: 0 0 14px #7d7d7d;
   box-shadow: 0 0 14px #7d7d7d;
+`;
+
+const OpenedContainer = Container.extend`
   animation: ${fromRightToLeft} 0.5s ease-in-out;
+`;
+
+const ClosedContainer = Container.extend`
+  animation: ${fromLeftToRight} 0.5s ease-in-out;
 `;
 
 const Title = styled.div`
