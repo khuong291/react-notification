@@ -73,11 +73,16 @@ class Notification extends React.Component {
     );
   }
 
+  onClick() {}
+
   render() {
     const Container = this.state.isClose ? ClosedContainer : OpenedContainer;
     return (
       <Container>
-        <ContentBox hasCloseButton={this.props.hasCloseButton}>
+        <ContentBox
+          hasCloseButton={this.props.hasCloseButton}
+          onClick={this.onClick.bind(this)}
+        >
           <ProviderImage src={this.props.providerURL} />
           <TextBox hasCloseButton={this.props.hasCloseButton}>
             <Title>{this.props.title}</Title>
