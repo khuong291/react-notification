@@ -77,16 +77,18 @@ class Notification extends React.Component {
     const Container = this.state.isClose ? ClosedContainer : OpenedContainer;
     return (
       <Container>
-        <ContentBox>
+        <ContentBox hasCloseButton={this.props.hasCloseButton}>
           <ProviderImage src={this.props.providerURL} />
-          <TextBox>
+          <TextBox hasCloseButton={this.props.hasCloseButton}>
             <Title>{this.props.title}</Title>
             <Description>{this.props.description}</Description>
           </TextBox>
         </ContentBox>
-        <HandleBox>
-          <CloseButton onClick={this.onClose.bind(this)}>Close</CloseButton>
-        </HandleBox>
+        {this.props.hasCloseButton && (
+          <HandleBox>
+            <CloseButton onClick={this.onClose.bind(this)}>Close</CloseButton>
+          </HandleBox>
+        )}
       </Container>
     );
   }
@@ -106,8 +108,8 @@ Notification.propTypes = {
 };
 
 Notification.defaultProps = {
-  hasCloseButton: false,
-  autoClose: true,
+  hasCloseButton: true,
+  autoClose: false,
   draggable: true,
   onOpen: () => {},
   onClose: () => {},
@@ -189,7 +191,7 @@ const ProviderImage = styled.img`
 `;
 
 const ContentBox = styled.div`
-  width: 80%;
+  width: ${props => (props.hasCloseButton ? "80%" : "100%")};
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -201,7 +203,7 @@ const TextBox = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  max-width: ${props => (props.hasCloseButton ? "200px" : "100%")};
 `;
 
 const HandleBox = styled.div`
