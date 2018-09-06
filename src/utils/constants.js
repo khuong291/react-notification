@@ -1,5 +1,5 @@
 export const MaxNotifications = 3;
-export const NotificationDisplayTime = 4000;
+export const NotificationDisplayTime = 5000;
 export const NotificationContainerId = "react-notification";
 
 export const ACTION = {

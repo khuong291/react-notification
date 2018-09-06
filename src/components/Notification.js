@@ -2,6 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import styled, { keyframes } from "styled-components";
 import notification from "../utils/notification";
+import { NotificationDisplayTime } from "../utils/constants";
 
 class Notification extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Notification extends React.Component {
           }, 500);
         }
       );
-    }, 4000);
+    }, NotificationDisplayTime);
   }
 
   componentDidUpdate(prevProps) {
