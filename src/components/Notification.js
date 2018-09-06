@@ -194,6 +194,7 @@ const ContentBox = styled.div`
   display: flex;
   flex-direction: row;
   padding: 5px;
+  cursor: pointer;
 `;
 
 const TextBox = styled.div`
@@ -223,6 +224,7 @@ const CloseButton = styled.button`
   width: 100%;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+  cursor: pointer;
   :hover {
     background-color: #f0f0f0;
   }
