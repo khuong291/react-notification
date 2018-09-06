@@ -101,7 +101,7 @@ const fromLeftToRight = keyframes`
 `;
 
 const Container = styled.div`
-  width: 350px;
+  width: 100%;
   height: 60px;
   background-color: #f6f6f6;
   float: right;
@@ -109,10 +109,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   z-index: 999;
+  margin-bottom: 14px;
   -moz-box-shadow: 0 0 14px #7d7d7d;
   -webkit-box-shadow: 0 0 14px #7d7d7d;
   box-shadow: 0 0 14px #7d7d7d;
-  margin: 10px 10px 0 0;
   animation: ${fromRightToLeft} 0.5s ease-in-out;
 `;
 

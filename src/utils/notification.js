@@ -1,5 +1,5 @@
 import eventManager from "./utils/eventManager";
-import { ACTION } from "../constants/constants";
+import { ACTION } from "./constants";
 
 let container = null;
 let queue = [];

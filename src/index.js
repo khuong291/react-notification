@@ -1,3 +1,3 @@
-import Notification from "./components/Notification";
+import NotificationContainer from "./components/NotificationContainer";
 
-export { NotificationManager, NotificationContainer };
+export { NotificationContainer };

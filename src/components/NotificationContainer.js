@@ -1,6 +1,8 @@
 import * as React from "react";
 import Notification from "./Notification";
-import PropTypes from "prop-types";
+import eventManager from "../utils/eventManager";
+import { ACTION } from "../utils/constants";
+import styled from "styled-components";
 
 class NotificationContainer extends React.Component {
   constructor(props) {
@@ -10,53 +12,64 @@ class NotificationContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    eventManager
+      .on(ACTION.SHOW, content => this.show(content))
+      .on(
+        ACTION.CLEAR,
+        id => (id !== null ? this.removeNotification(id) : this.clear())
+      )
+      .emit(ACTION.DID_MOUNT, this);
+  }
+
+  removeNotification(id) {
+    this.setState(
+      {
+        notifications: this.state.notifications.filter(
+          notification => notification !== id
+        )
+      },
+      eventManager.emit(ACTION.ON_CHANGE, this.state.notifications.length)
+    );
+  }
+
   renderNotifications() {
-    const NotificationToRender = {};
-    const { className, style, newestOnTop } = this.props;
-    const collection = newestOnTop
-      ? Object.keys(this.collection).reverse()
-      : Object.keys(this.collection);
-
-    // group toast by position
-    collection.forEach(toastId => {
-      const { position, options, content } = this.collection[toastId];
-      toastToRender[position] || (toastToRender[position] = []);
-
-      if (this.state.toast.indexOf(options.id) !== -1) {
-        toastToRender[position].push(this.makeToast(content, options));
-      } else {
-        toastToRender[position].push(null);
-        delete this.collection[toastId];
-      }
-    });
-
-    return Object.keys(toastToRender).map(position => {
-      const disablePointer =
-        toastToRender[position].length === 1 &&
-        toastToRender[position][0] === null;
-      const props = {
-        className: cx(
-          "Toastify__toast-container",
-          `Toastify__toast-container--${position}`,
-          { "Toastify__toast-container--rtl": this.props.rtl },
-          this.parseClassName(className)
-        ),
-        style: disablePointer
-          ? { ...style, pointerEvents: "none" }
-          : { ...style }
-      };
-
-      return (
-        <TransitionGroup {...props} key={`container-${position}`}>
-          {toastToRender[position]}
-        </TransitionGroup>
-      );
-    });
+    <Notification
+      providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
+      title="Disk Not Ejected Properly"
+      description="Eject Time Machine before disconnecting or turning it off"
+    />;
   }
 
   render() {
-    return <div>{this.renderNotifications()}</div>;
+    return (
+      <Container>
+        <Notification
+          providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
+          title="Disk Not Ejected Properly"
+          description="Eject Time Machine before disconnecting or turning it off"
+        />
+        <Notification
+          providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
+          title="Disk Not Ejected Properly"
+          description="Eject Time Machine before disconnecting or turning it off"
+        />
+        <Notification
+          providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
+          title="Disk Not Ejected Properly"
+          description="Eject Time Machine before disconnecting or turning it off"
+        />
+      </Container>
+    );
   }
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 10px 0 0;
+  width: 350px;
+  float: right;
+`;
 
 export default NotificationContainer;
