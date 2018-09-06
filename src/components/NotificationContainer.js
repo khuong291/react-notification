@@ -8,13 +8,14 @@ class NotificationContainer extends React.Component {
   render() {
     return (
       <Container id={NotificationContainerId}>
-        {queue.map(notification => {
+        {queue.map(({ id, providerURL, title, description }) => {
           return (
             <Notification
-              key={notification.id}
-              providerURL="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png"
-              title="Disk Not Ejected Properly"
-              description="Eject Time Machine before disconnecting or turning it off"
+              key={id}
+              id={id}
+              providerURL={providerURL}
+              title={`${title} ${id}`}
+              description={description}
             />
           );
         })}

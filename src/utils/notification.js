@@ -7,15 +7,21 @@ export let queue = [];
 let notificationId = 0;
 
 const notification = Object.assign({
-  emit: () => {
-    queue.push({ id: notificationId++ });
+  emit: (providerURL, title, description) => {
+    queue.push({ id: notificationId++, providerURL, title, description });
     let target = document.getElementById(NotificationContainerId);
     ReactDOM.render(<NotificationContainer />, target);
   },
   dismissAll: () => {
     queue = [];
+    notificationId = 0;
     let target = document.getElementById(NotificationContainerId);
     ReactDOM.unmountComponentAtNode(target);
+  },
+  onClose: id => {
+    queue = queue.filter(i => i.id !== id);
+    let target = document.getElementById(NotificationContainerId);
+    ReactDOM.render(<NotificationContainer />, target);
   }
 });
 

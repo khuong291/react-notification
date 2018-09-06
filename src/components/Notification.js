@@ -1,8 +1,16 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import styled, { keyframes } from "styled-components";
+import notification from "../utils/notification";
 
 class Notification extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isClose: false
+    };
+  }
+
   componentDidMount() {
     if (this.props.draggable) {
       this.bindDragEvents();
@@ -37,6 +45,17 @@ class Notification extends React.Component {
     document.removeEventListener("touchend", this.onDragEnd);
   }
 
+  onClose() {
+    this.setState(
+      {
+        isClose: true
+      },
+      () => {
+        notification.onClose(this.props.id);
+      }
+    );
+  }
+
   render() {
     return (
       <Container>
@@ -48,7 +67,7 @@ class Notification extends React.Component {
           </TextBox>
         </ContentBox>
         <HandleBox>
-          <CloseButton>Close</CloseButton>
+          <CloseButton onClick={this.onClose.bind(this)}>Close</CloseButton>
         </HandleBox>
       </Container>
     );
@@ -56,6 +75,7 @@ class Notification extends React.Component {
 }
 
 Notification.propTypes = {
+  id: PropTypes.number.isRequired,
   providerURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
