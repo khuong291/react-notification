@@ -2,12 +2,17 @@ import { NotificationContainerId } from "./constants";
 import ReactDOM from "react-dom";
 import React from "react";
 import NotificationContainer from "../components/NotificationContainer";
+import * as C from "./constants";
 
 export let queue = [];
 let notificationId = 0;
 const noop = () => {};
 
 const notification = Object.assign({
+  config: ({ maxNotifications, notificationDisplayTime }) => {
+    (C.MaxNotifications = maxNotifications),
+      (C.NotificationDisplayTime = notificationDisplayTime);
+  },
   emit: (
     {
       providerURL,
