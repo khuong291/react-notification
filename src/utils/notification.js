@@ -5,6 +5,7 @@ import NotificationContainer from "../components/NotificationContainer";
 import * as C from "./constants";
 
 export let queue = [];
+let fullQueue = [];
 let notificationId = 0;
 const noop = () => {};
 
@@ -25,7 +26,7 @@ const notification = Object.assign({
     },
     { onClick = noop, onClose = noop }
   ) => {
-    queue.push({
+    fullQueue.push({
       id: notificationId++,
       providerURL,
       title,
@@ -35,6 +36,7 @@ const notification = Object.assign({
       autoClose,
       draggable
     });
+    queue = fullQueue.slice(0, C.MaxNotifications);
     let target = document.getElementById(NotificationContainerId);
     ReactDOM.render(
       <NotificationContainer onClick={onClick} onClose={onClose} />,
@@ -42,6 +44,7 @@ const notification = Object.assign({
     );
   },
   dismissAll: (onDismiss = noop) => {
+    fullQueue = [];
     queue = [];
     notificationId = 0;
     let target = document.getElementById(NotificationContainerId);
@@ -49,7 +52,8 @@ const notification = Object.assign({
     onDismiss();
   },
   onClose: id => {
-    queue = queue.filter(i => i.id !== id);
+    fullQueue = fullQueue.filter(i => i.id !== id);
+    queue = fullQueue.slice(0, C.MaxNotifications);
     let target = document.getElementById(NotificationContainerId);
     ReactDOM.render(<NotificationContainer />, target);
   }
