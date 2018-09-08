@@ -9,10 +9,16 @@ const noop = () => {};
 
 const notification = Object.assign({
   emit: (
-    { providerURL, title, description },
+    { providerURL, title, description, closeButtonText = "Close" },
     { onClick = noop, onClose = noop }
   ) => {
-    queue.push({ id: notificationId++, providerURL, title, description });
+    queue.push({
+      id: notificationId++,
+      providerURL,
+      title,
+      description,
+      closeButtonText
+    });
     let target = document.getElementById(NotificationContainerId);
     ReactDOM.render(
       <NotificationContainer onClick={onClick} onClose={onClose} />,

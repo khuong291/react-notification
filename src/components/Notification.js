@@ -8,7 +8,8 @@ class Notification extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isClose: false
+      isClosed: false,
+      isClicked: false
     };
   }
 
@@ -20,7 +21,7 @@ class Notification extends React.Component {
       setTimeout(() => {
         this.setState(
           {
-            isClose: true
+            isClosed: true
           },
           () => {
             this.props.onClose();
@@ -64,7 +65,7 @@ class Notification extends React.Component {
   _onClose() {
     this.setState(
       {
-        isClose: true
+        isClosed: true
       },
       () => {
         setTimeout(() => {
@@ -75,13 +76,31 @@ class Notification extends React.Component {
     );
   }
 
+  _onClick() {
+    this.setState(
+      {
+        isClicked: true
+      },
+      () => {
+        setTimeout(() => {
+          this.props.onClick();
+          notification.onClose(this.props.id);
+        }, 300);
+      }
+    );
+  }
+
   render() {
-    const Container = this.state.isClose ? ClosedContainer : OpenedContainer;
+    const Container = this.state.isClicked
+      ? FadeInContainer
+      : this.state.isClosed
+        ? ClosedContainer
+        : OpenedContainer;
     return (
       <Container>
         <ContentBox
           hasCloseButton={this.props.hasCloseButton}
-          onClick={this.props.onClick}
+          onClick={this._onClick.bind(this)}
         >
           <ProviderImage src={this.props.providerURL} />
           <TextBox hasCloseButton={this.props.hasCloseButton}>
@@ -91,7 +110,9 @@ class Notification extends React.Component {
         </ContentBox>
         {this.props.hasCloseButton && (
           <HandleBox>
-            <CloseButton onClick={this._onClose.bind(this)}>Close</CloseButton>
+            <CloseButton onClick={this._onClose.bind(this)}>
+              {this.props.closeButtonText}
+            </CloseButton>
           </HandleBox>
         )}
       </Container>
@@ -104,6 +125,7 @@ Notification.propTypes = {
   providerURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  closeButtonText: PropTypes.string,
   hasCloseButton: PropTypes.bool,
   autoClose: PropTypes.bool,
   draggable: PropTypes.bool,
@@ -143,6 +165,18 @@ const fromLeftToRight = keyframes`
   }
 `;
 
+const fadeIn = keyframes`
+  from {
+    transform: scale(1, 1)
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.3, 0.3);
+    opacity: 0;
+  }
+`;
+
 const Container = styled.div`
   width: 100%;
   height: 60px;
@@ -164,6 +198,10 @@ const OpenedContainer = Container.extend`
 
 const ClosedContainer = Container.extend`
   animation: ${fromLeftToRight} 0.5s ease-in-out;
+`;
+
+const FadeInContainer = Container.extend`
+  animation: ${fadeIn} 0.4s ease-in-out;
 `;
 
 const Title = styled.div`

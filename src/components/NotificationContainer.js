@@ -9,19 +9,22 @@ class NotificationContainer extends React.Component {
   render() {
     return (
       <Container id={NotificationContainerId}>
-        {queue.map(({ id, providerURL, title, description }) => {
-          return (
-            <Notification
-              key={id}
-              id={id}
-              providerURL={providerURL}
-              title={`${title} ${id}`}
-              description={description}
-              onClick={this.props.onClick}
-              onClose={this.props.onClose}
-            />
-          );
-        })}
+        {queue.map(
+          ({ id, providerURL, title, description, closeButtonText }) => {
+            return (
+              <Notification
+                key={id}
+                id={id}
+                providerURL={providerURL}
+                title={`${title} ${id}`}
+                description={description}
+                closeButtonText={closeButtonText}
+                onClick={this.props.onClick}
+                onClose={this.props.onClose}
+              />
+            );
+          }
+        )}
       </Container>
     );
   }
