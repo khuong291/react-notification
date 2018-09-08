@@ -23,6 +23,7 @@ class Notification extends React.Component {
             isClose: true
           },
           () => {
+            this.props.onClose();
             setTimeout(() => {
               notification.onClose(this.props.id);
             }, 500);
@@ -60,20 +61,19 @@ class Notification extends React.Component {
     document.removeEventListener("touchend", this.onDragEnd);
   }
 
-  onClose() {
+  _onClose() {
     this.setState(
       {
         isClose: true
       },
       () => {
         setTimeout(() => {
+          this.props.onClose();
           notification.onClose(this.props.id);
         }, 500);
       }
     );
   }
-
-  onClick() {}
 
   render() {
     const Container = this.state.isClose ? ClosedContainer : OpenedContainer;
@@ -81,7 +81,7 @@ class Notification extends React.Component {
       <Container>
         <ContentBox
           hasCloseButton={this.props.hasCloseButton}
-          onClick={this.onClick.bind(this)}
+          onClick={this.props.onClick}
         >
           <ProviderImage src={this.props.providerURL} />
           <TextBox hasCloseButton={this.props.hasCloseButton}>
@@ -91,7 +91,7 @@ class Notification extends React.Component {
         </ContentBox>
         {this.props.hasCloseButton && (
           <HandleBox>
-            <CloseButton onClick={this.onClose.bind(this)}>Close</CloseButton>
+            <CloseButton onClick={this._onClose.bind(this)}>Close</CloseButton>
           </HandleBox>
         )}
       </Container>
@@ -107,7 +107,6 @@ Notification.propTypes = {
   hasCloseButton: PropTypes.bool,
   autoClose: PropTypes.bool,
   draggable: PropTypes.bool,
-  onOpen: PropTypes.func,
   onClose: PropTypes.func,
   onClick: PropTypes.func
 };
@@ -116,7 +115,6 @@ Notification.defaultProps = {
   hasCloseButton: true,
   autoClose: false,
   draggable: true,
-  onOpen: () => {},
   onClose: () => {},
   onClick: () => {}
 };

@@ -8,11 +8,16 @@ let notificationId = 0;
 const noop = () => {};
 
 const notification = Object.assign({
-  emit: ({ providerURL, title, description }, onRender = noop) => {
+  emit: (
+    { providerURL, title, description },
+    { onClick = noop, onClose = noop }
+  ) => {
     queue.push({ id: notificationId++, providerURL, title, description });
     let target = document.getElementById(NotificationContainerId);
-    ReactDOM.render(<NotificationContainer />, target);
-    onRender();
+    ReactDOM.render(
+      <NotificationContainer onClick={onClick} onClose={onClose} />,
+      target
+    );
   },
   dismissAll: (onDismiss = noop) => {
     queue = [];
@@ -21,11 +26,10 @@ const notification = Object.assign({
     ReactDOM.unmountComponentAtNode(target);
     onDismiss();
   },
-  onClose: (id, onClose = noop) => {
+  onClose: id => {
     queue = queue.filter(i => i.id !== id);
     let target = document.getElementById(NotificationContainerId);
     ReactDOM.render(<NotificationContainer />, target);
-    onClose();
   }
 });
 

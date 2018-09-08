@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import Notification from "./Notification";
 import { NotificationContainerId } from "../utils/constants";
 import styled from "styled-components";
@@ -16,6 +17,8 @@ class NotificationContainer extends React.Component {
               providerURL={providerURL}
               title={`${title} ${id}`}
               description={description}
+              onClick={this.props.onClick}
+              onClose={this.props.onClose}
             />
           );
         })}
@@ -23,6 +26,11 @@ class NotificationContainer extends React.Component {
     );
   }
 }
+
+NotificationContainer.propTypes = {
+  onClick: PropTypes.func,
+  onClose: PropTypes.func
+};
 
 const Container = styled.div`
   display: flex;

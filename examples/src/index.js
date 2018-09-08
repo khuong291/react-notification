@@ -7,13 +7,19 @@ const App = () => (
     <NotificationContainer />
     <button
       onClick={() => {
-        notification.emit({
-          providerURL:
-            "http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png",
-          title: "Disk Not Ejected Properly",
-          description:
-            "Eject Time Machine before disconnecting or turning it off"
-        });
+        notification.emit(
+          {
+            providerURL:
+              "http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/1024/finder-icon.png",
+            title: "Disk Not Ejected Properly",
+            description:
+              "Eject Time Machine before disconnecting or turning it off"
+          },
+          {
+            onClick: () => console.log("Click!!"),
+            onClose: () => console.log("Close!!")
+          }
+        );
       }}
     >
       show
