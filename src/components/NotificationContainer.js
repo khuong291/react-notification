@@ -10,7 +10,16 @@ class NotificationContainer extends React.Component {
     return (
       <Container id={NotificationContainerId}>
         {queue.map(
-          ({ id, providerURL, title, description, closeButtonText }) => {
+          ({
+            id,
+            providerURL,
+            title,
+            description,
+            closeButtonText,
+            hasCloseButton,
+            autoClose,
+            draggable
+          }) => {
             return (
               <Notification
                 key={id}
@@ -19,6 +28,9 @@ class NotificationContainer extends React.Component {
                 title={`${title} ${id}`}
                 description={description}
                 closeButtonText={closeButtonText}
+                hasCloseButton={hasCloseButton}
+                autoClose={autoClose}
+                draggable={draggable}
                 onClick={this.props.onClick}
                 onClose={this.props.onClose}
               />
