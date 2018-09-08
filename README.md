@@ -86,7 +86,8 @@ Configure notification. This is optional. The default maxNotifications is 3 and 
     },
     { onClick = noop, onClose = noop }
 
-)`
+)
+`
 
 Emit notification with some informations and callback handler.
 
