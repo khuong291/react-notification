@@ -25,22 +25,25 @@ class Notification extends React.Component {
   }
 
   componentDidMount() {
+    this._mounted = true;
     if (this.props.draggable) {
       this.bindDragEvents();
     }
     if (this.props.autoClose) {
       setTimeout(() => {
-        this.setState(
-          {
-            isClosed: true
-          },
-          () => {
-            this.props.onClose();
-            setTimeout(() => {
-              notification.onClose(this.props.id);
-            }, 500);
-          }
-        );
+        if (this._mounted) {
+          this.setState(
+            {
+              isClosed: true
+            },
+            () => {
+              this.props.onClose();
+              setTimeout(() => {
+                notification.onClose(this.props.id);
+              }, 500);
+            }
+          );
+        }
       }, NotificationDisplayTime);
     }
   }
@@ -52,6 +55,7 @@ class Notification extends React.Component {
   }
 
   componentWillUnmount() {
+    this._mounted = false;
     if (this.props.draggable) {
       this.unbindDragEvents();
     }
