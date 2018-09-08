@@ -70,12 +70,14 @@ render(<App />, document.getElementById("root"));
 
 ## Methods
 
-### `config: ({ maxNotifications, notificationDisplayTime })`
+```js
+config: ({ maxNotifications, notificationDisplayTime });
+```
 
 Configure notification. This is optional. The default maxNotifications is 3 and notificationDisplayTime is 5s.
 
-### `emit: (
-
+```js
+emit: (
     {
       providerURL,
       title,
@@ -85,13 +87,14 @@ Configure notification. This is optional. The default maxNotifications is 3 and 
       autoClose = true
     },
     { onClick = noop, onClose = noop }
-
 )
-`
+```
 
 Emit notification with some informations and callback handler.
 
-### `dismissAll: (onDismiss = noop)`
+```js
+dismissAll: onDismiss = noop;
+```
 
 Removes ALL notifications programatically.
 
