@@ -67,3 +67,38 @@ const App = () => (
 
 render(<App />, document.getElementById("root"));
 ```
+
+## Methods
+
+### `config: ({ maxNotifications, notificationDisplayTime })`
+
+Configure notification. This is optional. The default maxNotifications is 3 and notificationDisplayTime is 5s.
+
+### `emit: (
+
+    {
+      providerURL,
+      title,
+      description,
+      closeButtonText = "Close",
+      hasCloseButton = true,
+      autoClose = true
+    },
+    { onClick = noop, onClose = noop }
+
+)`
+
+Emit notification with some informations and callback handler.
+
+### `dismissAll: (onDismiss = noop)`
+
+Removes ALL notifications programatically.
+
+## Author
+
+[Khuong Pham](https://khuong291.github.io/home/) <br>
+
+## License
+
+react-notification-popup is released under the MIT license.  
+See LICENSE for details.
