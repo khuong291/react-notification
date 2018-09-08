@@ -26,9 +26,6 @@ class Notification extends React.Component {
 
   componentDidMount() {
     this._mounted = true;
-    if (this.props.draggable) {
-      this.bindDragEvents();
-    }
     if (this.props.autoClose) {
       setTimeout(() => {
         if (this._mounted) {
@@ -48,33 +45,8 @@ class Notification extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.draggable !== this.props.draggable) {
-      this.props.draggable ? this.bindDragEvents() : this.unbindDragEvents();
-    }
-  }
-
   componentWillUnmount() {
     this._mounted = false;
-    if (this.props.draggable) {
-      this.unbindDragEvents();
-    }
-  }
-
-  bindDragEvents() {
-    document.addEventListener("mousemove", this.onDragMove);
-    document.addEventListener("mouseup", this.onDragEnd);
-
-    document.addEventListener("touchmove", this.onDragMove);
-    document.addEventListener("touchend", this.onDragEnd);
-  }
-
-  unbindDragEvents() {
-    document.removeEventListener("mousemove", this.onDragMove);
-    document.removeEventListener("mouseup", this.onDragEnd);
-
-    document.removeEventListener("touchmove", this.onDragMove);
-    document.removeEventListener("touchend", this.onDragEnd);
   }
 
   _onClose() {
@@ -143,7 +115,6 @@ Notification.propTypes = {
   closeButtonText: PropTypes.string,
   hasCloseButton: PropTypes.bool,
   autoClose: PropTypes.bool,
-  draggable: PropTypes.bool,
   onClose: PropTypes.func,
   onClick: PropTypes.func
 };
@@ -151,7 +122,6 @@ Notification.propTypes = {
 Notification.defaultProps = {
   hasCloseButton: true,
   autoClose: false,
-  draggable: true,
   onClose: () => {},
   onClick: () => {}
 };

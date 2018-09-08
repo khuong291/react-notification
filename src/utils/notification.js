@@ -21,8 +21,7 @@ const notification = Object.assign({
       description,
       closeButtonText = "Close",
       hasCloseButton = true,
-      autoClose = true,
-      draggable = true
+      autoClose = true
     },
     { onClick = noop, onClose = noop }
   ) => {
@@ -33,8 +32,7 @@ const notification = Object.assign({
       description,
       closeButtonText,
       hasCloseButton,
-      autoClose,
-      draggable
+      autoClose
     });
     queue = fullQueue.slice(0, C.MaxNotifications);
     let target = document.getElementById(NotificationContainerId);

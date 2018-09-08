@@ -17,8 +17,7 @@ class NotificationContainer extends React.Component {
             description,
             closeButtonText,
             hasCloseButton,
-            autoClose,
-            draggable
+            autoClose
           }) => {
             return (
               <Notification
@@ -30,7 +29,6 @@ class NotificationContainer extends React.Component {
                 closeButtonText={closeButtonText}
                 hasCloseButton={hasCloseButton}
                 autoClose={autoClose}
-                draggable={draggable}
                 onClick={this.props.onClick}
                 onClose={this.props.onClose}
               />
