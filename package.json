@@ -1,8 +1,8 @@
 {
-  "name": "react-notification",
+  "name": "react-notification-popup",
   "version": "0.1.0",
   "description": "A complete and totally customizable component for notifications in React",
-  "main": "index.js",
+  "main": "dist/index.js",
   "keywords": [
     "react",
     "notification",
@@ -14,11 +14,17 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "transpile": "babel src -d dist --copy-files",
+    "prepublishOnly": "npm run transpile"
   },
   "author": "khuong291 <dkhuong291@gmail.com>",
   "repository": "https://github.com/khuong291/react-notification.git",
   "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
+  },
   "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -2,6 +2,11 @@ import React from "react";
 import { render } from "react-dom";
 import { notification, NotificationContainer } from "../../src";
 
+notification.config = {
+  maxNotifications: 3,
+  notificationDisplayTime: 5000
+};
+
 const App = () => (
   <div>
     <NotificationContainer />
