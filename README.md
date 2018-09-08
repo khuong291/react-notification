@@ -21,6 +21,15 @@ A complete and totally customizable component for notifications in React
 npm install react-notification-popup
 ```
 
+## Contributing
+
+1. Fork project
+2. Checkout **master** branch
+3. Create **Feature** branch off of the **master** branch
+4. Create awesome feature/enhancement/bug-fix
+5. Optionally create _Issue_ to discuss feature
+6. Submit pull request from your **Feature** branch to react-notification's **master** branch
+
 ## Using
 
 ```js
