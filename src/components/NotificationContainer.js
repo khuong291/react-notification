@@ -24,7 +24,7 @@ class NotificationContainer extends React.Component {
                 key={id}
                 id={id}
                 providerURL={providerURL}
-                title={`${title} ${id}`}
+                title={title}
                 description={description}
                 closeButtonText={closeButtonText}
                 hasCloseButton={hasCloseButton}
